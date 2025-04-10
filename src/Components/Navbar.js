@@ -1,32 +1,47 @@
 import * as React from "react";
-import { Box, AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemText,ListItemButton, TextField, InputAdornment } from "@mui/material";
+import { Box, AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemText, ListItemButton, TextField, InputAdornment } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchDrawerOpen, setSearchDrawerOpen] = useState(false);
-  const [category,setCategory] = useState([]);
+  const [category, setCategory] = useState([]);
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    var fetchcategorydata = async()=>{
-        axios.get('http://localhost:3000/admin/dispcategory')
-        .then((res)=>{        
-            setCategory(res.data.data);
-            console.log("Category == ",res.data.data);
-          })
-          .catch((error)=>{
-            console.error('Error fetching category data:', error);
-          })
-      
+  useEffect(() => {
+    var fetchcategorydata = async () => {
+      axios.get('http://localhost:3000/admin/dispcategory')
+        .then((res) => {
+          setCategory(res.data.data);
+          console.log("Category == ", res.data.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching category data:', error);
+        })
+
     }
     fetchcategorydata()
-  },[])
+  }, [])
+
+  const handleCategoryClick = (cname) => {
+    const name = cname;
+    if (cname === "Women's Fashion") {
+      console.log("Hello = " + cname);
+      navigate("/womens-fashion");
+    }
+    else if(cname === "Men Fashion"){
+      console.log("Hey men = "+cname);
+      navigate("/mens-fashion");
+    }
+
+  };
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -42,7 +57,7 @@ export default function Navbar() {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "white" }}>
+      <AppBar position="sticky" style={{ backgroundColor: "white", top: 0, zIndex: 1100 }}>
         <Toolbar>
           {/* Menu Icon Button */}
           <IconButton
@@ -69,7 +84,7 @@ export default function Navbar() {
           >
             LUXE
           </Typography>
-           <IconButton onClick={toggleSearchDrawer(true)}> <SearchRoundedIcon/></IconButton>
+          <IconButton onClick={toggleSearchDrawer(true)}> <SearchRoundedIcon /></IconButton>
         </Toolbar>
       </AppBar>
 
@@ -87,15 +102,20 @@ export default function Navbar() {
           >
             <CloseIcon />
           </IconButton>
-          <List>
-            {category.map((cat)=>(    
-            <ListItem key={cat._id} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={cat.category_name} />
-              </ListItemButton>
-            </ListItem>
-            ))}
-          </List>
+          {/* here it display all category from fetchcategorydata */}
+          {category.map((cat) => (
+            <List>
+              <ListItem key={cat._id}
+                disablePadding
+              >
+                <ListItemButton onClick={() => handleCategoryClick(cat.category_name)}>
+                  <ListItemText primary={cat.category_name} />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          ))}
+
+
         </Box>
       </Drawer>
 

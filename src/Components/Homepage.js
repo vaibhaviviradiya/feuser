@@ -3,14 +3,20 @@ import { Button, Grid, Typography } from '@mui/material';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import CardCover from '@mui/joy/CardCover';
-import CardContent from '@mui/joy/CardCover';
-import { styled } from '@mui/material/styles';
 
-export default function Homepage({ videoSrc ,title, text}) { // Accept the videoSrc prop
+import WovenImageList from './WovenImagelist';
+import Textforhomes from './Textforhomes';
+import Imagesforhomes from './Imagesforhomes';
+import i1 from './Images/pm_11872_1020_1020498-peqgana0g3-whr.jpg'
+import i2 from './Images/pm_11872_1030_1030288-owxi5vm6rg-whr.jpg'
+import i3 from './Images/packing-img.jpg'
+import i4 from './Images/bags.mp4'
+
+export default function Homepage({ videoSrc = true, title, text }) { // Accept the videoSrc prop
 
   return (
     <>
-      <Box
+      { videoSrc && (<Box
         component="ul"
         sx={{ display: 'flex', flexWrap: 'wrap', p: 0, borderRadius: 0 }}
       >
@@ -29,7 +35,7 @@ export default function Homepage({ videoSrc ,title, text}) { // Accept the video
             </video>
           </CardCover>
         </Card>
-      </Box>
+      </Box>)}
       <Grid>
         <Box sx={{ textAlign: 'center', p: { xs: 2, sm: 3, md: 0 } }}>
           <Typography
@@ -43,7 +49,7 @@ export default function Homepage({ videoSrc ,title, text}) { // Accept the video
                 variant="h6"
                 component="h6"
                 sx={{
-                  fontFamily:'Century Gothic',
+                  fontFamily: 'Century Gothic',
                   fontWeight: 'bold',
                   mt: { xs: 2, sm: 3, md: 0 },
                   mb: 1,
@@ -64,7 +70,7 @@ export default function Homepage({ videoSrc ,title, text}) { // Accept the video
               </Typography>
               <Button
                 sx={{
-                  p: 0, pt: 1,mb:3, color: 'text.primary',
+                  p: 0, pt: 1, mb: 3, color: 'text.primary',
                   textTransform: 'none',
                   borderBottom: '2px solid black',
                   borderRadius: '0px',
@@ -79,6 +85,15 @@ export default function Homepage({ videoSrc ,title, text}) { // Accept the video
           </Typography>
         </Box>
       </Grid>
+      <WovenImageList />
+
+      <Textforhomes title="Dior Caro Bucket" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." />
+      <Textforhomes title="Lady Dior Around The World" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." showButton={false} showimg={false} />
+      <Imagesforhomes img1={i1} img2={i2} showtext={false}/>
+      <Textforhomes title="The Art of Gifting" showButton={true} showimg={false} />
+      <Imagesforhomes img1={i3} showHello={true} video={i4}/>
+
+
     </>
   );
 }
