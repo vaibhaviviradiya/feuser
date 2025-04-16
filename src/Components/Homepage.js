@@ -12,7 +12,7 @@ import i2 from './Images/pm_11872_1030_1030288-owxi5vm6rg-whr.jpg'
 import i3 from './Images/packing-img.jpg'
 import i4 from './Images/bags.mp4'
 
-export default function Homepage({ videoSrc = true, title, text }) { // Accept the videoSrc prop
+export default function Homepage({ videoSrc = true, title, text }) { 
 
   return (
     <>
@@ -26,10 +26,10 @@ export default function Homepage({ videoSrc = true, title, text }) { // Accept t
               autoPlay
               loop
               muted
-              poster={videoSrc} // Optional: Use the videoSrc as the poster as well
+              poster={videoSrc} 
             >
               <source
-                src={videoSrc} // Use the videoSrc prop here
+                src={videoSrc} 
                 type="video/mp4"
               />
             </video>
@@ -85,8 +85,8 @@ export default function Homepage({ videoSrc = true, title, text }) { // Accept t
           </Typography>
         </Box>
       </Grid>
-      <WovenImageList />
 
+      <WovenImageList />
       <Textforhomes title="Dior Caro Bucket" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." />
       <Textforhomes title="Lady Dior Around The World" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." showButton={false} showimg={false} />
       <Imagesforhomes img1={i1} img2={i2} showtext={false}/>

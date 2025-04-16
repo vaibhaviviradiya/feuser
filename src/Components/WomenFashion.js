@@ -7,6 +7,7 @@ import CardCover from '@mui/joy/CardCover';
 import WomenCollection from './WomenCollection';
 import MenCollection from './MenCollection';
 import {useLocation} from 'react-router-dom'
+import KidsCollection from './KidsCollection';
 
 function WomenFashion({videoSrc}) {
   const location = useLocation();
@@ -35,10 +36,13 @@ function WomenFashion({videoSrc}) {
       </Box>
       {/* <WomenCollection/> */}
       {/* <MenCollection/> */}
-      {location.pathname == '/women-fashion/allproducts' && <WomenCollection/>}
+      
+      {location.pathname == '/women-fashion/allproducts' && <WomenCollection/>} 
       {location.pathname == '/womens-fashion' && <WomenCollection/>}
       {location.pathname == '/men-fashion/allproducts' && <MenCollection/>}
       {location.pathname == '/mens-fashion' && <MenCollection/>}
+      {location.pathname == '/kidsbaby' && <KidsCollection/>}
+      {location.pathname == '/kids-&-baby/allproducts' && <KidsCollection/>}
     </div>
   )
 }

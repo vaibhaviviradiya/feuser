@@ -1,19 +1,31 @@
 import * as React from "react";
-import { Box, AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemText, ListItemButton, TextField, InputAdornment } from "@mui/material";
+import { Box, AppBar, Toolbar, IconButton, Badge, Typography, Drawer, List, ListItem, ListItemText, ListItemButton, TextField, InputAdornment, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import Tooltip from '@mui/material/Tooltip';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { useState, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { CartContext } from '../Components/CartContext';
+import { useContext } from "react";
+import i1 from '../Components/Images/jewelry.webp'
+import i4 from '../Components/Images/small_goods.avif'
+import i3 from '../Components/Images/women-shoes2.webp'
+import i2 from '../Components/Images/men-shoes.avif'
 
 export default function Navbar() {
+  const { clearCart } = useContext(CartContext)
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchDrawerOpen, setSearchDrawerOpen] = useState(false);
   const [category, setCategory] = useState([]);
+  const [products, setProducts] = useState([])
   const navigate = useNavigate();
+  const { addToCart, getItemCount } = useContext(CartContext);
+  const [searchData, setSearchData] = useState("")
 
   useEffect(() => {
     var fetchcategorydata = async () => {
@@ -30,18 +42,63 @@ export default function Navbar() {
     fetchcategorydata()
   }, [])
 
+  useEffect(() => {
+    var fetchproductdata = async () => {
+      axios.get('http://localhost:3000/admin/viewproduct')
+        .then((res) => {
+          setProducts(res.data.data);
+          console.log("products availl == ", res.data.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching product data:', error);
+        })
+    }
+    fetchproductdata()
+  }, [])
+  console.log("hello products", products);
+
+  const logout = () => {
+    clearCart();
+    sessionStorage.removeItem('userinfo')
+    navigate('/')
+  }
+
   const handleCategoryClick = (cname) => {
     const name = cname;
     if (cname === "Women's Fashion") {
       console.log("Hello = " + cname);
       navigate("/womens-fashion");
     }
-    else if(cname === "Men Fashion"){
-      console.log("Hey men = "+cname);
+    else if (cname === "Men Fashion") {
+      console.log("Hey men = " + cname);
       navigate("/mens-fashion");
     }
-
+    else if(cname === "Kids & Baby")
+    {
+      navigate('/kidsbaby')
+    }
+    else if (cname === "Home") {
+      navigate("/home");
+    }
   };
+
+  const goToCart = () => {
+    navigate('/cart');
+  };
+
+  const handleSearch = () => {
+    const res = searchData.toLowerCase().trim();
+    console.log("res search", res);
+
+    var matchp = products.filter(item => item.product_name.toLowerCase().includes(res))
+    console.log("match product = ",matchp);
+    if (matchp) {
+      navigate(`/product/${matchp[0]._id}`,{state : {product : matchp[0]}});
+    } else {
+      alert("No matching product found.");
+    }
+    setSearchDrawerOpen(false)
+  }
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -55,6 +112,24 @@ export default function Navbar() {
     }
     setSearchDrawerOpen(open);
   };
+  const itemData = [
+    {
+      img: i1,
+      title: "product1"
+    },
+    {
+      img: i2,
+      title: "product2"
+    },
+    {
+      img: i3,
+      title: "product3"
+    },
+    {
+      img: i4,
+      title: "product4"
+    }
+  ]
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="sticky" style={{ backgroundColor: "white", top: 0, zIndex: 1100 }}>
@@ -84,7 +159,19 @@ export default function Navbar() {
           >
             LUXE
           </Typography>
-          <IconButton onClick={toggleSearchDrawer(true)}> <SearchRoundedIcon /></IconButton>
+
+
+          {/* cart */}
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, mb: 2 }}>
+            <Tooltip title="Cart"><IconButton onClick={goToCart} sx={{ position: 'relative' }}>
+              <Badge badgeContent={getItemCount()} color="error">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton></Tooltip>
+          </Box>
+
+          <Tooltip title="Search"><IconButton onClick={toggleSearchDrawer(true)}> <SearchRoundedIcon /></IconButton></Tooltip>
+          <Tooltip title="Logout"><IconButton onClick={logout}><LogoutTwoToneIcon /></IconButton></Tooltip>
         </Toolbar>
       </AppBar>
 
@@ -114,8 +201,6 @@ export default function Navbar() {
               </ListItem>
             </List>
           ))}
-
-
         </Box>
       </Drawer>
 
@@ -136,6 +221,8 @@ export default function Navbar() {
             fullWidth
             placeholder="What are you looking for?"
             variant="standard"
+            value={searchData}
+            onChange={(e) => setSearchData(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -144,7 +231,7 @@ export default function Navbar() {
               ),
               endAdornment: (
                 <InputAdornment position="end">
-                  <ArrowForwardIosIcon sx={{ color: "gray" }} />
+                  <ArrowForwardIosIcon sx={{ color: "gray", cursor: "pointer", '&:hover': { color: "black" } }} onClick={handleSearch} />
                 </InputAdornment>
               ),
               sx: { fontSize: "1.2rem", pb: 1 },
@@ -154,9 +241,9 @@ export default function Navbar() {
           {/* Suggestions */}
           <Typography variant="subtitle1" sx={{ color: "gray", mt: 3 }}>
             Suggestions
-          </Typography>
+          </Typography> 
           <List>
-            {["Lady Dior", "Wallet", "Shoes", "Saddle bag", "Sunglasses", "Bags"].map((item) => (
+            {["Lady Dior", "Boots", "Belt", "Saddle bag", "Sunglasses", "Dior Necklace"].map((item) => (
               <ListItem button key={item}>
                 <ListItemText primary={item} />
               </ListItem>
@@ -168,17 +255,14 @@ export default function Navbar() {
             You may also like
           </Typography>
           <Box sx={{ display: "flex", gap: 2, overflowX: "auto" }}>
-            {[
-              "https://via.placeholder.com/100",
-              "https://via.placeholder.com/100",
-              "https://via.placeholder.com/100",
-              "https://via.placeholder.com/100",
-            ].map((img, index) => (
-              <img key={index} src={img} alt="Product" style={{ width: 100, height: 100, borderRadius: 5 }} />
+            {itemData.map((item, index) => (
+              <img key={index} src={item.img} alt={item.title} style={{ width: 'auto', height: 100, borderRadius: 0 }} />
             ))}
           </Box>
         </Box>
       </Drawer>
+
     </Box>
+
   );
 }

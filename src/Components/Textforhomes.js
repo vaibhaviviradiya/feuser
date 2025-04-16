@@ -5,7 +5,7 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardCover';
 
 
-export default function Textforhomes({ title, text, showButton = true, showimg = true }) { // Accept the videoSrc prop
+export default function Textforhomes({ title, text, showButton = true, showimg = true }) { 
 
     return (
         <>
@@ -73,7 +73,6 @@ export default function Textforhomes({ title, text, showButton = true, showimg =
                     overflow: 'hidden',
                 }}
             >
-                {/* Overlay */}
                 <Box
                     sx={{
                         position: 'absolute',
@@ -81,12 +80,11 @@ export default function Textforhomes({ title, text, showButton = true, showimg =
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.4)', // semi-transparent black
+                        backgroundColor: 'rgba(0, 0, 0, 0.4)', 
                         zIndex: 1,
                     }}
                 />
 
-                {/* Centered Text */}
                 <CardContent
                     sx={{
                         position: 'relative',

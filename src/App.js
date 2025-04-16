@@ -17,15 +17,28 @@ import Mreadywear from './Components/Mreadywear'
 import Mshoes from './Components/Mshoes'
 import Mgoods from './Components/Mgoods'
 import ProductDetail from './Components/ProductDetail'
+import { CartProvider } from './Components/CartContext';
+import CartPage from './Components/CartPage'
+import Userlogin from './Components/Userlogin'
+import Purchase from './Components/Purchase'
+import Register from './Components/Register'
+import KidsCollection from './Components/KidsCollection'
+import Textforhomes from './Components/Textforhomes'
+import KidsVideo from './Components/Images/kids.mp4';
+import Kreadytowear from './Components/Kreadytowear'
+import Kshoes from './Components/Kshoes'
 
 function App() {
   return (
     <div>
+          <CartProvider>
       <BrowserRouter>
         <Navbar/>
         <Routes>
-          <Route path='/' element={
-            <Homepage videoSrc={WomenVideo} title="AUTUMN WINTER 2024-2025 COLLECTION" text="An incandescent odyssey between two symbolic eras, the Dior autumn-winter 2024-2025 ready-to-wear line, conceived by Maria Grazia Chiuri, reveals models that shine with the strength of a bold femininity."/>
+        <Route path="/" element={<Userlogin/>}/>
+        <Route path='/userregister' element={<Register/>} />
+          <Route path='/home' element={
+            <Homepage videoSrc={WomenVideo} title="SUMMER 2025-2026 COLLECTION" text="An incandescent odyssey between two symbolic eras, the Dior autumn-winter 2024-2025 ready-to-wear line, conceived by Maria Grazia Chiuri, reveals models that shine with the strength of a bold femininity."/>
             }>                            
           </Route>
           <Route path='/womens-fashion' key="women" element={<WomenFashion videoSrc={WomenVideo1}/>} />
@@ -42,11 +55,18 @@ function App() {
           <Route path='/men/shoes' element={<Mshoes/>}/>
           <Route path='/men/goods' element={<Mgoods/>}/>
 
-          <Route path="/product/:id" element={<ProductDetail/>} />
+          <Route path='/kidsbaby' element={<WomenFashion videoSrc={KidsVideo} />}/>
+          <Route path='/kids-&-baby/allproducts' element={<WomenFashion videoSrc={KidsVideo}/>}/>
+          <Route path='/kids/readytowear' element={<Kreadytowear/>}/>
+          <Route path='/kids/readytowear/kids/shoes' element={<Kshoes/>}/>
 
+          <Route path="/product/:id" element={<ProductDetail/>} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path='/checkout' element={<Purchase/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>
+      </CartProvider>
     </div>
   )
 }
