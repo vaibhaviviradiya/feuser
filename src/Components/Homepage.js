@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react'
+import { Box } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 import { Button, Grid, Typography } from '@mui/material';
-import Box from '@mui/joy/Box';
-import Card from '@mui/joy/Card';
-import CardCover from '@mui/joy/CardCover';
 
 import WovenImageList from './WovenImagelist';
 import Textforhomes from './Textforhomes';
@@ -21,7 +21,7 @@ export default function Homepage({ videoSrc = true, title, text }) {
         sx={{ display: 'flex', flexWrap: 'wrap', p: 0, borderRadius: 0 }}
       >
         <Card component="li" sx={{ minWidth: 100, minHeight: 350, flexGrow: 1 }}>
-          <CardCover>
+          <CardMedia>
             <video
               autoPlay
               loop
@@ -33,7 +33,7 @@ export default function Homepage({ videoSrc = true, title, text }) {
                 type="video/mp4"
               />
             </video>
-          </CardCover>
+          </CardMedia>
         </Card>
       </Box>)}
       <Grid>

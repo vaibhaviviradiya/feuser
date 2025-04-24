@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react'
 import { Button, Grid, Typography } from '@mui/material';
-import Box from '@mui/joy/Box';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardCover';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 
 export default function Textforhomes({ title, text, showButton = true, showimg = true }) { 

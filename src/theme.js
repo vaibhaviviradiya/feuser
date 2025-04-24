@@ -1,8 +1,6 @@
 import { createTheme } from '@mui/material/styles';
-import { extendTheme as createJoyTheme } from '@mui/joy/styles';
 
-// Create base theme
-const baseTheme = {
+const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
@@ -40,17 +38,12 @@ const baseTheme = {
       focus: 'rgba(0, 0, 0, 0.12)',
     },
   },
-};
-
-// Create Material-UI theme
-const muiTheme = createTheme({
-  ...baseTheme,
   components: {
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: baseTheme.palette.background.paper,
-          color: baseTheme.palette.text.primary,
+          backgroundColor: '#ffffff',
+          color: '#000000',
         },
       },
     },
@@ -78,42 +71,5 @@ const muiTheme = createTheme({
     },
   },
 });
-
-// Create Joy UI theme
-const joyTheme = createJoyTheme({
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          solidBg: baseTheme.palette.primary.main,
-          solidHoverBg: baseTheme.palette.primary.main,
-          solidActiveBg: baseTheme.palette.primary.main,
-          solidColor: '#ffffff',
-        },
-        neutral: {
-          solidBg: baseTheme.palette.grey[100],
-          solidHoverBg: baseTheme.palette.grey[200],
-          solidActiveBg: baseTheme.palette.grey[300],
-          solidColor: baseTheme.palette.grey[900],
-        },
-      },
-    },
-  },
-  components: {
-    JoyCard: {
-      styleOverrides: {
-        root: {
-          backgroundColor: baseTheme.palette.background.paper,
-        },
-      },
-    },
-  },
-});
-
-// Merge themes
-const theme = {
-  ...muiTheme,
-  ...joyTheme,
-};
 
 export default theme; 

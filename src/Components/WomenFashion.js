@@ -1,9 +1,9 @@
 import React from 'react'
 import Homepage from './Homepage'
 import { Button, Grid, Typography } from '@mui/material';
-import Box from '@mui/joy/Box';
-import Card from '@mui/joy/Card';
-import CardCover from '@mui/joy/CardCover';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 import WomenCollection from './WomenCollection';
 import MenCollection from './MenCollection';
 import {useLocation} from 'react-router-dom'
@@ -19,7 +19,7 @@ function WomenFashion({videoSrc}) {
         sx={{ display: 'flex', flexWrap: 'wrap', p: 0, borderRadius: 0 }}
       >
         <Card component="li" sx={{ minWidth: 100, minHeight: 450, flexGrow: 1 }}>
-          <CardCover>
+          <CardMedia>
             <video
             key={videoSrc}
               autoPlay
@@ -32,7 +32,7 @@ function WomenFashion({videoSrc}) {
                 type="video/mp4"
               />
             </video>
-          </CardCover>
+          </CardMedia>
         </Card>
       </Box>
       {/* <WomenCollection/> */}

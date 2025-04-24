@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button, Grid, Typography } from '@mui/material';
-import Box from '@mui/joy/Box';
+import { Button, Grid, Typography, Box } from '@mui/material';
 function Imagesforhomes({ img1, img2, showHello = false ,video}) {
     return (
         <div>
