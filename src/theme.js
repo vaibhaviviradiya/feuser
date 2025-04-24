@@ -27,11 +27,57 @@ const baseTheme = {
       paper: '#ffffff',
       default: '#ffffff',
     },
+    text: {
+      primary: 'rgba(0, 0, 0, 0.87)',
+      secondary: 'rgba(0, 0, 0, 0.6)',
+    },
+    action: {
+      active: 'rgba(0, 0, 0, 0.54)',
+      hover: 'rgba(0, 0, 0, 0.04)',
+      selected: 'rgba(0, 0, 0, 0.08)',
+      disabled: 'rgba(0, 0, 0, 0.26)',
+      disabledBackground: 'rgba(0, 0, 0, 0.12)',
+      focus: 'rgba(0, 0, 0, 0.12)',
+    },
   },
 };
 
 // Create Material-UI theme
-const muiTheme = createTheme(baseTheme);
+const muiTheme = createTheme({
+  ...baseTheme,
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: baseTheme.palette.background.paper,
+          color: baseTheme.palette.text.primary,
+        },
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          '&:before': {
+            borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
+          },
+          '&:hover:not(.Mui-disabled):before': {
+            borderBottom: '2px solid rgba(0, 0, 0, 0.87)',
+          },
+          '&:after': {
+            borderBottom: '2px solid #000000',
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
+  },
+});
 
 // Create Joy UI theme
 const joyTheme = createJoyTheme({
