@@ -74,9 +74,14 @@ function Userlogin() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <Link href="/userregister" underline="hover" color="text.secondary">
-                            Have you not register yet?
-                        </Link>
+                        <Box display="flex" justifyContent="space-between" gap={2}>
+                            <Link href="/userregister" underline="hover" color="text.secondary">
+                                Have you not register yet?
+                            </Link>
+                            <Link href="/forgetpassword" underline="hover" color="text.secondary">
+                                Forget password?
+                            </Link>
+                        </Box>
                         <Button
                             variant="outlined"
                             sx={{
@@ -94,6 +99,7 @@ function Userlogin() {
                         >
                             LOG IN
                         </Button>
+
                         <Snackbar open={open} autoHideDuration={6000} onClose={() => setOpen(false)}>
                             <Alert onClose={() => setOpen(false)} severity={severity} sx={{ width: '100%' }}>
                                 {message}

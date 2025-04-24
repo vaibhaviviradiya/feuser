@@ -8,6 +8,7 @@ import WomenCollection from './WomenCollection';
 import MenCollection from './MenCollection';
 import {useLocation} from 'react-router-dom'
 import KidsCollection from './KidsCollection';
+import Jwellery from './JwelleryCollection';
 
 function WomenFashion({videoSrc}) {
   const location = useLocation();
@@ -43,6 +44,9 @@ function WomenFashion({videoSrc}) {
       {location.pathname == '/mens-fashion' && <MenCollection/>}
       {location.pathname == '/kidsbaby' && <KidsCollection/>}
       {location.pathname == '/kids-&-baby/allproducts' && <KidsCollection/>}
+      {location.pathname == '/jwellery-&-timepieces/allproducts' && <Jwellery/>}
+      {location.pathname == '/jwellery-&-timepieces' && <Jwellery/>}
+
     </div>
   )
 }

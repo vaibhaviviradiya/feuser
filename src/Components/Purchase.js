@@ -41,7 +41,7 @@ function Purchase() {
       };
 
       console.log(orderData);
-      
+
       const response = await axios.post('http://localhost:3000/admin/addorder', orderData);
 
       console.log('Order saved successfully:', response.data);

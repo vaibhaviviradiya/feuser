@@ -12,17 +12,14 @@ function ProductDetail() {
   const location = useLocation(); //current page ni details aapse like url info. and je data pass karyo aeni
   const product = location.state?.product;
   
-  // Use cart context
   const {addToCart, getItemCount,updateQuantity } = useContext(CartContext);
   
-  // Local state for quantity
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
   
   // jo direct url thi product page open kare ne location ma state na male to 
   if (!product) return <Typography>No product found</Typography>;
   
-  // Slider settings for multiple product images
   const sliderSettings = {
     dots: true,
     infinite: product.picture?.length > 1,
@@ -35,7 +32,6 @@ function ProductDetail() {
   console.log("Product to add:", product);
 console.log("Product ID:", product._id);
 
-  // function to add the current product to the cart
   const handleAddToCart = () => {
     addToCart(product, quantity);
     setAddedToCart(true);
@@ -105,7 +101,7 @@ console.log("Product ID:", product._id);
             ₹{product.price?.toLocaleString() || 0}
           </Typography>
           
-          {/* Quantity Selector */}
+          {/* quantity buttons */}
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
             <Typography variant="body1" sx={{ mr: 2 }}>Quantity:</Typography>
             <IconButton 
@@ -128,7 +124,6 @@ console.log("Product ID:", product._id);
             </IconButton>
           </Box>
           
-          {/* Add to cart button */}
           <Box sx={{ mb: 2 }}>
             <Button
               variant="contained"

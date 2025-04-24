@@ -50,7 +50,7 @@ export const CartProvider = ({ children }) => {
 
   // Update product quantity
   const updateQuantity = (productId, newQuantity) => {
-    console.log("Updating product ID:", productId, "to quantity:", newQuantity);
+    console.log("updating product ID:", productId, "to quantity:", newQuantity);
 
     if (newQuantity <= 0) {
       removeFromCart(productId);

@@ -80,6 +80,10 @@ export default function Navbar() {
     else if (cname === "Home") {
       navigate("/home");
     }
+    else if(cname === "Jwellery & TimePieces")
+    {
+      navigate("/jwellery-&-timepieces")
+    }
   };
 
   const goToCart = () => {
