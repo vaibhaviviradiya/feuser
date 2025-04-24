@@ -1,6 +1,6 @@
 import React from 'react'
 // import { BrowserRouter,Route,Routes,Router } from 'react-router-dom'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './Components/Navbar'
 import Homepage from './Components/Homepage'
 import WomenVideo from './Components/Images/luxehome.webm'
@@ -29,14 +29,14 @@ import Kreadytowear from './Components/Kreadytowear'
 import Kshoes from './Components/Kshoes'
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { ThemeProvider as JoyThemeProvider } from '@mui/joy/styles';
-import theme from './theme';
+import { muiTheme, joyTheme } from './theme';
 
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <JoyThemeProvider theme={theme}>
+    <MuiThemeProvider theme={muiTheme}>
+      <JoyThemeProvider theme={joyTheme}>
         <CartProvider>
-          <BrowserRouter>
+          <Router>
             <Navbar/>
             <Routes>
             <Route path="/" element={<Userlogin/>}/>
@@ -69,7 +69,7 @@ function App() {
               <Route path='/checkout' element={<Purchase/>}/>
             </Routes>
             <Footer/>
-          </BrowserRouter>
+          </Router>
         </CartProvider>
       </JoyThemeProvider>
     </MuiThemeProvider>

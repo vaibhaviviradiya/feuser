@@ -2,7 +2,7 @@ import { createTheme as createMuiTheme } from '@mui/material/styles';
 import { extendTheme as createJoyTheme } from '@mui/joy/styles';
 
 // Create Material-UI theme
-const muiTheme = createMuiTheme({
+export const muiTheme = createMuiTheme({
   palette: {
     primary: {
       main: '#000000',
@@ -77,7 +77,7 @@ const muiTheme = createMuiTheme({
 });
 
 // Create Joy UI theme
-const joyTheme = createJoyTheme({
+export const joyTheme = createJoyTheme({
   colorSchemes: {
     light: {
       palette: {
