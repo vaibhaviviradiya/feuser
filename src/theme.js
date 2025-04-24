@@ -1,6 +1,8 @@
 import { createTheme } from '@mui/material/styles';
+import { extendTheme as createJoyTheme } from '@mui/joy/styles';
 
-const theme = createTheme({
+// Create base theme
+const baseTheme = {
   palette: {
     mode: 'light',
     primary: {
@@ -21,51 +23,51 @@ const theme = createTheme({
       800: '#424242',
       900: '#212121',
     },
-    text: {
-      primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.6)',
-    },
     background: {
       paper: '#ffffff',
       default: '#ffffff',
     },
-    action: {
-      active: 'rgba(0, 0, 0, 0.54)',
-      hover: 'rgba(0, 0, 0, 0.04)',
+  },
+};
+
+// Create Material-UI theme
+const muiTheme = createTheme(baseTheme);
+
+// Create Joy UI theme
+const joyTheme = createJoyTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: {
+          solidBg: baseTheme.palette.primary.main,
+          solidHoverBg: baseTheme.palette.primary.main,
+          solidActiveBg: baseTheme.palette.primary.main,
+          solidColor: '#ffffff',
+        },
+        neutral: {
+          solidBg: baseTheme.palette.grey[100],
+          solidHoverBg: baseTheme.palette.grey[200],
+          solidActiveBg: baseTheme.palette.grey[300],
+          solidColor: baseTheme.palette.grey[900],
+        },
+      },
     },
   },
   components: {
-    MuiAppBar: {
+    JoyCard: {
       styleOverrides: {
         root: {
-          backgroundColor: '#ffffff',
-          color: '#000000',
-        },
-      },
-    },
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          '&:before': {
-            borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
-          },
-          '&:hover:not(.Mui-disabled):before': {
-            borderBottom: '2px solid rgba(0, 0, 0, 0.87)',
-          },
-          '&:after': {
-            borderBottom: '2px solid #000000',
-          },
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
+          backgroundColor: baseTheme.palette.background.paper,
         },
       },
     },
   },
 });
+
+// Merge themes
+const theme = {
+  ...muiTheme,
+  ...joyTheme,
+};
 
 export default theme; 
