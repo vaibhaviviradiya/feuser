@@ -33,8 +33,8 @@ function CartPage() {
           <Typography variant="h6" gutterBottom>Your cart is empty</Typography>
           <Button
             variant="contained"
+            color="primary"
             onClick={continueShopping}
-            sx={{ backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: '#333' } }}
           >
             Continue Shopping
           </Button>
@@ -133,7 +133,7 @@ function CartPage() {
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
                 <Button
                   variant="outlined"
-                  color='black'
+                  color="primary"
                   onClick={continueShopping}
                   startIcon={<ShoppingBagIcon />}
                 >
@@ -182,9 +182,9 @@ function CartPage() {
 
               <Button
                 variant="contained"
+                color="primary"
                 fullWidth
                 onClick={goToCheckout}
-                sx={{ backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: '#333' } }}
               >
                 Proceed to Buy
               </Button>
