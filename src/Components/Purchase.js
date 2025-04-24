@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { CartContext } from '../Components/CartContext';
 import { Container, Paper, Typography, Box, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PrintIcon from '@mui/icons-material/Print';
 import HomeIcon from '@mui/icons-material/Home';
 import axios from 'axios';
+import Payment from './Payment';
 
 function Purchase() {
   const { cart, getTotal } = useContext(CartContext);
@@ -16,47 +17,7 @@ function Purchase() {
   const [orderSaved, setOrderSaved] = useState(false)
   const [saveError, setSaveError] = useState(null);
 
-  useEffect(() => {
-    const user = sessionStorage.getItem('userinfo');
-    console.log(user);
-
-    if (user) {
-      var data = JSON.parse(user);
-      setUserData(data);
-      //   console.log("USER DATA  = ",userData.Data);
-
-    } else {
-      navigate('/');
-    }
-
-    // Generate order date
-    const today = new Date();
-    setOrderDate(today.toLocaleDateString('en-IN', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }));
-
-    // Generate random order number
-    setOrderNumber('ORD-' + Math.floor(100000 + Math.random() * 900000));
-
-  }, [navigate]);
-
-  useEffect(() => {
-    const saveOrder = async () => {
-      if (userData && cart.length > 0 && !orderSaved) {
-        try {
-          await SaveOrdertoDatabase();
-        } catch (err) {
-          console.error("Failed to save order:", err);
-        }
-      }
-    };
-
-    saveOrder();
-  }, [userData, cart, orderSaved]);
-
-  const SaveOrdertoDatabase = async () => {
+  const SaveOrdertoDatabase = useCallback(async () => {
     try {
       console.log("Starting to save order...");
       console.log("User data:", userData);
@@ -99,8 +60,37 @@ function Purchase() {
       console.error('Error saving order:', error);
       setSaveError(error.message);
     }
-  }
+  }, [userData, cart, orderNumber, orderDate, getTotal]);
 
+  useEffect(() => {
+    const user = sessionStorage.getItem('userinfo');
+    console.log(user);
+
+    if (user) {
+      var data = JSON.parse(user);
+      setUserData(data);
+    } else {
+      navigate('/');
+    }
+
+    // Generate order date
+    const today = new Date();
+    setOrderDate(today.toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }));
+
+    // Generate random order number
+    setOrderNumber('ORD-' + Math.floor(100000 + Math.random() * 900000));
+
+  }, [navigate]);
+
+  useEffect(() => {
+    if (userData && cart.length > 0 && !orderSaved) {
+      SaveOrdertoDatabase();
+    }
+  }, [userData, cart, orderSaved, SaveOrdertoDatabase]);
 
   const handlePrint = () => {
     window.print();
@@ -251,6 +241,12 @@ function Purchase() {
           </Box>
         </Box>
 
+        {/* Payment Gateway */}
+        <Box sx={{ mt: 4, mb: 4 }}>
+          <Typography variant="h6" sx={{ mb: 2 }}>Payment</Typography>
+          <Payment amount={getTotal()} />
+        </Box>
+
         {/* Thank You Message */}
         <Divider sx={{ my: 3 }} />
         <Box sx={{ textAlign: 'center', mb: 3 }}>
@@ -262,20 +258,20 @@ function Purchase() {
       </Paper>
 
       {/* Action Buttons */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }} className="no-print" style={{ '@media print': { display: 'none' } }}>
-        <Button
-          variant="contained"
-          startIcon={<HomeIcon />}
-          onClick={handleGoHome}
-          sx={{ bgcolor: 'black', '&:hover': { bgcolor: '#333' } }}
-        >
-          Continue Shopping
-        </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
         <Button
           variant="outlined"
+          startIcon={<HomeIcon />}
+          onClick={handleGoHome}
+          sx={{ mr: 2 }}
+        >
+          Back to Home
+        </Button>
+        <Button
+          variant="contained"
           startIcon={<PrintIcon />}
           onClick={handlePrint}
-          sx={{ borderColor: 'black', color: 'black', '&:hover': { bgcolor: '#f4f4f4' } }}
+          color="primary"
         >
           Print Receipt
         </Button>
