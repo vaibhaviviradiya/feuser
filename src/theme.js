@@ -1,8 +1,8 @@
-import { createTheme as createMuiTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { extendTheme as createJoyTheme } from '@mui/joy/styles';
 
 // Create Material-UI theme
-export const muiTheme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#000000',
@@ -64,12 +64,32 @@ export const muiTheme = createMuiTheme({
       disabledBackground: 'rgba(0, 0, 0, 0.12)',
       focus: 'rgba(0, 0, 0, 0.12)',
     },
+    divider: 'rgba(0, 0, 0, 0.12)',
+  },
+  shape: {
+    borderRadius: 4,
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           textTransform: 'none',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ffffff',
+          color: '#000000',
         },
       },
     },
@@ -120,9 +140,9 @@ export const joyTheme = createJoyTheme({
 });
 
 // Merge both themes
-const theme = {
-  ...muiTheme,
+const mergedTheme = {
+  ...theme,
   ...joyTheme,
 };
 
-export default theme; 
+export default mergedTheme; 
