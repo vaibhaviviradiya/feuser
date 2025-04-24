@@ -28,11 +28,13 @@ import KidsVideo from './Components/Images/kids.mp4';
 import Kreadytowear from './Components/Kreadytowear'
 import Kshoes from './Components/Kshoes'
 import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <CartProvider>
         <Router>
           <Navbar/>

@@ -1,32 +1,13 @@
 import { createTheme } from '@mui/material/styles';
-import { extendTheme as createJoyTheme } from '@mui/joy/styles';
 
-// Create Material-UI theme
 const theme = createTheme({
   palette: {
+    mode: 'light',
     primary: {
       main: '#000000',
-      light: '#333333',
-      dark: '#000000',
-      contrastText: '#ffffff',
     },
     secondary: {
       main: '#f50057',
-      light: '#ff4081',
-      dark: '#c51162',
-      contrastText: '#ffffff',
-    },
-    error: {
-      main: '#f44336',
-      light: '#e57373',
-      dark: '#d32f2f',
-      contrastText: '#ffffff',
-    },
-    success: {
-      main: '#4caf50',
-      light: '#81c784',
-      dark: '#388e3c',
-      contrastText: '#ffffff',
     },
     grey: {
       50: '#fafafa',
@@ -39,52 +20,21 @@ const theme = createTheme({
       700: '#616161',
       800: '#424242',
       900: '#212121',
-      A100: '#d5d5d5',
-      A200: '#aaaaaa',
-      A400: '#303030',
-      A700: '#616161',
-    },
-    background: {
-      default: '#ffffff',
-      paper: '#ffffff',
     },
     text: {
-      primary: '#000000',
+      primary: 'rgba(0, 0, 0, 0.87)',
       secondary: 'rgba(0, 0, 0, 0.6)',
     },
-    common: {
-      black: '#000000',
-      white: '#ffffff',
+    background: {
+      paper: '#ffffff',
+      default: '#ffffff',
     },
     action: {
       active: 'rgba(0, 0, 0, 0.54)',
       hover: 'rgba(0, 0, 0, 0.04)',
-      selected: 'rgba(0, 0, 0, 0.08)',
-      disabled: 'rgba(0, 0, 0, 0.26)',
-      disabledBackground: 'rgba(0, 0, 0, 0.12)',
-      focus: 'rgba(0, 0, 0, 0.12)',
     },
-    divider: 'rgba(0, 0, 0, 0.12)',
-  },
-  shape: {
-    borderRadius: 4,
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    fontSize: 14,
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
   },
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-        },
-      },
-    },
     MuiAppBar: {
       styleOverrides: {
         root: {
@@ -93,56 +43,29 @@ const theme = createTheme({
         },
       },
     },
-  },
-});
-
-// Create Joy UI theme
-export const joyTheme = createJoyTheme({
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          solidBg: '#000000',
-          solidHoverBg: '#333333',
-          solidActiveBg: '#000000',
-          solidColor: '#ffffff',
-        },
-        neutral: {
-          solidBg: '#f50057',
-          solidHoverBg: '#ff4081',
-          solidActiveBg: '#c51162',
-          solidColor: '#ffffff',
-        },
-        danger: {
-          solidBg: '#f44336',
-          solidHoverBg: '#e57373',
-          solidActiveBg: '#d32f2f',
-          solidColor: '#ffffff',
-        },
-        success: {
-          solidBg: '#4caf50',
-          solidHoverBg: '#81c784',
-          solidActiveBg: '#388e3c',
-          solidColor: '#ffffff',
-        },
-      },
-    },
-  },
-  components: {
-    JoyCard: {
+    MuiInput: {
       styleOverrides: {
         root: {
-          backgroundColor: '#ffffff',
+          '&:before': {
+            borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
+          },
+          '&:hover:not(.Mui-disabled):before': {
+            borderBottom: '2px solid rgba(0, 0, 0, 0.87)',
+          },
+          '&:after': {
+            borderBottom: '2px solid #000000',
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
         },
       },
     },
   },
 });
 
-// Merge both themes
-const mergedTheme = {
-  ...theme,
-  ...joyTheme,
-};
-
-export default mergedTheme; 
+export default theme; 
